@@ -18,7 +18,7 @@ public class ProblemGenerator {
     private final RandomGenerator random;
 
     public ProblemGenerator() {
-        this(RandomGenerator.getDefault());
+        this(new java.util.Random());
     }
 
     ProblemGenerator(RandomGenerator random) {
