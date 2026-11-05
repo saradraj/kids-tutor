@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: kids-tutor
+  ai:
+    anthropic:
+      api-key: ${ANTHROPIC_API_KEY}
+      chat:
+        options:
+          model: claude-haiku-5-5
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org.springframework.ai.chat.client.advisor: DEBUG
