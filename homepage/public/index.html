@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sarad Rajbhandari – Backend and AI engineer</title>
+    <meta name="description" content="Sarad Rajbhandari builds backend systems and AI agents in Java and Spring Boot. Live projects: Math with Pip, an AI math tutor for kids, and a youth soccer team helper.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --paper: #EEF2F6;
+            --panel: #FFFFFF;
+            --ink: #1B2433;
+            --ink-soft: #4E5B6E;
+            --wire: #9AA9BC;
+            --blue: #1F5F8B;
+            --live: #2E9E6B;
+            --building: #C98A1B;
+            --radius-node: 14px;
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+            font-optical-sizing: auto;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        a { color: var(--blue); text-underline-offset: 3px; }
+        a:focus-visible, .node:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
+        .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+
+        /* Top bar */
+        .top { display: flex; justify-content: space-between; align-items: center; padding: 26px 0; }
+        .mark { font-weight: 800; font-size: 20px; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+        .links { display: flex; gap: 22px; font-size: 16px; }
+        .links a { color: var(--ink-soft); text-decoration: none; }
+        .links a:hover { color: var(--ink); text-decoration: underline; }
+
+        /* Hero */
+        .hero { display: grid; grid-template-columns: 1fr 1.05fr; gap: 48px; align-items: center; padding: 40px 0 72px; }
+        h1 {
+            font-size: clamp(44px, 6.4vw, 82px);
+            line-height: 0.98;
+            letter-spacing: -0.035em;
+            font-weight: 800;
+            margin: 0 0 22px;
+        }
+        .lede { font-size: 22px; line-height: 1.45; max-width: 30ch; margin: 0 0 16px; font-weight: 500; }
+        .bio { color: var(--ink-soft); max-width: 46ch; margin: 0; }
+
+        /* Service map */
+        .map { position: relative; }
+        .map svg { width: 100%; height: auto; display: block; overflow: visible; }
+        .wire { stroke: var(--wire); stroke-width: 2; fill: none; stroke-dasharray: 6 6; }
+        .wire.on { stroke: var(--blue); stroke-dasharray: none; }
+        .node rect { fill: var(--panel); stroke: var(--wire); stroke-width: 1.5; }
+        .node.hub rect { fill: var(--ink); stroke: var(--ink); }
+        .node.hub text { fill: #FFFFFF; }
+        .node text { font-family: inherit; fill: var(--ink); }
+        .node .host { font-size: 17px; font-weight: 700; }
+        .node .what { font-size: 14px; fill: var(--ink-soft); }
+        .node.app { cursor: pointer; }
+        .node.app:hover rect { stroke: var(--blue); stroke-width: 2.5; }
+        .node.soon { cursor: default; }
+        .node.soon rect { stroke-dasharray: 5 4; }
+        .dot-live { fill: var(--live); }
+        .dot-building { fill: var(--building); }
+        .status { font-size: 13px; font-weight: 500; }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .wire.on { stroke-dasharray: 260; stroke-dashoffset: 260; animation: connect 0.9s ease-out 0.25s forwards; }
+            @keyframes connect { to { stroke-dashoffset: 0; } }
+        }
+
+        /* Projects */
+        .projects { padding: 8px 0 56px; }
+        h2 { font-size: 32px; letter-spacing: -0.02em; margin: 0 0 8px; font-weight: 700; }
+        .section-intro { color: var(--ink-soft); margin: 0 0 28px; max-width: 60ch; }
+        .project {
+            display: grid; grid-template-columns: 220px 1fr; gap: 36px;
+            background: var(--panel); border-radius: 22px; padding: 34px 36px; margin-bottom: 20px;
+            border: 1.5px solid #DCE3EC;
+        }
+        .project.soon { background: transparent; border-style: dashed; border-color: var(--wire); }
+        .project-host { font-weight: 700; font-size: 17px; margin: 0 0 6px; word-break: break-word; }
+        .badge { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 500; color: var(--ink-soft); }
+        .badge::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--live); }
+        .soon .badge::before { background: var(--building); }
+        h3 { font-size: 26px; letter-spacing: -0.015em; margin: 0 0 10px; line-height: 1.2; }
+        .project p { margin: 0 0 14px; max-width: 64ch; }
+        .points { margin: 0 0 18px; padding-left: 20px; max-width: 64ch; }
+        .points li { margin-bottom: 6px; }
+        .stack { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; padding: 0; list-style: none; }
+        .stack li { font-size: 14px; padding: 4px 11px; border-radius: 999px; background: #E4EBF3; color: var(--ink); }
+        .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+        .btn {
+            display: inline-block; padding: 11px 20px; border-radius: 12px; font-weight: 700; font-size: 16px;
+            text-decoration: none; border: 2px solid var(--blue);
+        }
+        .btn.primary { background: var(--blue); color: #FFFFFF; }
+        .btn.primary:hover { background: #174a6d; border-color: #174a6d; }
+        .btn.secondary { color: var(--blue); background: transparent; }
+        .btn.secondary:hover { background: #E4EBF3; }
+        .btn[aria-disabled="true"] { border-color: var(--wire); color: var(--ink-soft); background: transparent; cursor: not-allowed; }
+
+        /* About */
+        .about { display: grid; grid-template-columns: 220px 1fr; gap: 36px; padding: 28px 0 64px; border-top: 1.5px solid #DCE3EC; }
+        .about h2 { font-size: 24px; }
+        .about p { margin: 0 0 12px; max-width: 64ch; }
+
+        footer { padding: 26px 0 40px; color: var(--ink-soft); font-size: 15px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+        footer a { color: var(--ink-soft); }
+
+        @media (max-width: 860px) {
+            .hero { grid-template-columns: 1fr; gap: 28px; padding-top: 16px; }
+            .project, .about { grid-template-columns: 1fr; gap: 14px; padding: 26px 22px; }
+            .about { padding: 28px 0 48px; }
+            .links { gap: 16px; }
+        }
+        @media (max-width: 560px) {
+            .map { display: none; }
+            .hero { padding-bottom: 40px; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <header class="top">
+        <a class="mark" href="/">saradraj.dev</a>
+        <nav class="links" aria-label="Profiles">
+            <a href="https://www.linkedin.com/in/saradraj">LinkedIn</a>
+            <a href="https://github.com/saradraj">GitHub</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div>
+                <h1>Sarad Rajbhandari</h1>
+                <p class="lede">I build backend systems and AI agents in Java, and ship them to the cloud.</p>
+                <p class="bio">Nine years of Spring Boot services for payments and retail, now applied to agentic AI. Open the live projects below, try them, and read how they're built.</p>
+            </div>
+
+            <div class="map">
+                <svg viewBox="0 0 560 400" role="group" aria-label="Map of live projects">
+                    <path class="wire on" d="M280 128 C280 170, 140 170, 140 214"/>
+                    <path class="wire" d="M280 128 C280 170, 420 170, 420 214"/>
+                    <path class="wire" d="M140 290 L140 330"/>
+                    <path class="wire" d="M420 290 L420 330"/>
+
+                    <g class="node hub">
+                        <rect x="170" y="56" width="220" height="72" rx="14"/>
+                        <text class="host" x="280" y="88" text-anchor="middle">saradraj.dev</text>
+                        <text class="what" x="280" y="110" text-anchor="middle" style="fill:#C9D3E0">You are here</text>
+                    </g>
+
+                    <a class="node app" href="https://tutor.saradraj.dev" aria-label="Open Math with Pip at tutor.saradraj.dev">
+                        <rect x="30" y="214" width="220" height="76" rx="14"/>
+                        <text class="host" x="140" y="246" text-anchor="middle">tutor.saradraj.dev</text>
+                        <circle class="dot-live" cx="88" cy="268" r="5"/>
+                        <text class="status" x="98" y="273">Live: Math with Pip</text>
+                    </a>
+
+                    <g class="node soon" aria-label="soccer.saradraj.dev, in progress">
+                        <rect x="310" y="214" width="220" height="76" rx="14"/>
+                        <text class="host" x="420" y="246" text-anchor="middle">soccer.saradraj.dev</text>
+                        <circle class="dot-building" cx="372" cy="268" r="5"/>
+                        <text class="status" x="382" y="273">In progress</text>
+                    </g>
+
+                    <g class="node" aria-hidden="true">
+                        <rect x="60" y="330" width="160" height="44" rx="12" style="fill:#F7F9FB"/>
+                        <text class="what" x="140" y="357" text-anchor="middle">Cloud Run + Claude</text>
+                    </g>
+                    <g class="node" aria-hidden="true">
+                        <rect x="325" y="330" width="190" height="44" rx="12" style="fill:#F7F9FB;stroke-dasharray:5 4"/>
+                        <text class="what" x="420" y="357" text-anchor="middle">Spring Boot + Postgres</text>
+                    </g>
+                </svg>
+            </div>
+        </section>
+
+        <section class="projects" aria-labelledby="projects-title">
+            <h2 id="projects-title">Projects</h2>
+            <p class="section-intro">Small, complete systems: built end to end, deployed, and documented.</p>
+
+            <article class="project">
+                <div>
+                    <p class="project-host">tutor.saradraj.dev</p>
+                    <span class="badge">Live</span>
+                </div>
+                <div>
+                    <h3>Math with Pip, an AI math tutor for kids</h3>
+                    <p>Children aged 6–10 solve math problems while Pip, an AI tutor, coaches them with questions and hints instead of answers. A flashcard mode offers quick practice without the AI.</p>
+                    <ul class="points">
+                        <li>The AI coaches and code grades: a Java checker marks every answer, so the model can't leak an answer or mark a wrong one right.</li>
+                        <li>Agent tool calling with Spring AI, with each tool scoped to the child's own session on the server.</li>
+                        <li>No accounts and no personal data, with the API key kept in Secret Manager.</li>
+                    </ul>
+                    <ul class="stack" aria-label="Technology">
+                        <li>Java 21</li><li>Spring Boot 4</li><li>Spring AI</li><li>Claude</li><li>React</li><li>Docker</li><li>Cloud Run</li><li>Firebase Hosting</li>
+                    </ul>
+                    <div class="actions">
+                        <a class="btn primary" href="https://tutor.saradraj.dev">Open the tutor</a>
+                        <a class="btn secondary" href="https://github.com/saradraj/kids-tutor">View the code</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="project soon">
+                <div>
+                    <p class="project-host">soccer.saradraj.dev</p>
+                    <span class="badge">In progress</span>
+                </div>
+                <div>
+                    <h3>Youth soccer team helper</h3>
+                    <p>A tool for volunteer coaches and parents: rosters, game schedules, snack and carpool sign-ups, and a lineup planner that gives every child fair playing time.</p>
+                    <ul class="points">
+                        <li>Rotation planner that balances minutes and positions across a game and a season.</li>
+                        <li>An AI assistant that turns "Sam leaves at halftime" into a new fair lineup.</li>
+                        <li>Per-team data isolation and email reminders before each game.</li>
+                    </ul>
+                    <ul class="stack" aria-label="Technology">
+                        <li>Java 21</li><li>Spring Boot</li><li>PostgreSQL</li><li>Spring AI</li><li>Event-driven reminders</li>
+                    </ul>
+                    <div class="actions">
+                        <a class="btn" aria-disabled="true" role="link">Opens when it's live</a>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section class="about" aria-labelledby="about-title">
+            <h2 id="about-title">About</h2>
+            <div>
+                <p>I'm a backend engineer and application architect with nine years of experience building Java and Spring Boot services, most recently for payments at Western Union, and before that at Lululemon, Homesite, Electronic Arts and Elsevier.</p>
+                <p>I'm an AWS Certified Developer and a Certified ScrumMaster, and I'm looking for senior software engineering and agentic AI roles.</p>
+                <p><a href="https://www.linkedin.com/in/saradraj">Connect on LinkedIn</a> or browse the code on <a href="https://github.com/saradraj">GitHub</a>.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <span>Austin, Texas</span>
+        <span>© 2026 Sarad Rajbhandari</span>
+    </footer>
+</div>
+</body>
+</html>

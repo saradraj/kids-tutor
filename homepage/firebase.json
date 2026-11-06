@@ -1,0 +1,8 @@
+{
+  "hosting": {
+    "site": "saradraj-home",
+    "public": "public",
+    "ignore": ["firebase.json", "**/.*"],
+    "cleanUrls": true
+  }
+}
