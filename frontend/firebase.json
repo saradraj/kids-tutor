@@ -1,0 +1,14 @@
+{
+  "hosting": {
+    "site": "kids-tutor-saradraj",
+    "public": "dist",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "/api/**",
+        "run": { "serviceId": "kids-tutor-api", "region": "us-central1" }
+      },
+      { "source": "**", "destination": "/index.html" }
+    ]
+  }
+}
