@@ -3,9 +3,9 @@ import {sendMessage, startSession} from "./api.js";
 import Flashcards from './Flashcards.jsx';
 
 const LEVELS = [
-    { level: 1, name: 'Easy', sample: '3 + 4', color: 'mint'},
-    { level: 2, name: 'Medium', sample: '15 - 7', color: 'sky'},
-    { level: 3, name: 'Time Tables', sample: '6 * 7', color: 'grape'},
+    { level: 1, name: 'Easy', sample: '3 + 4', color: 'mint', stars: '⭐', desc: 'Numbers up to 10', grades: 'K–1' },
+    { level: 2, name: 'Medium', sample: '15 − 7', color: 'sky', stars: '⭐⭐', desc: 'Numbers up to 20', grades: '1–2' },
+    { level: 3, name: 'Times Tables', sample: '6 × 7', color: 'grape', stars: '⭐⭐⭐', desc: 'Tables 2 to 10', grades: '2–4' },
 ];
 
 const KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '⌫', '0', '✓'];
@@ -50,12 +50,16 @@ function LevelPicker({ onPick, onPickCards }) {
                 <button className={mode === 'tutor' ? 'active' : ''} onClick={() => setMode('tutor')}>Learn with Pip</button>
                 <button className={mode === 'cards' ? 'active' : ''} onClick={() => setMode('cards')}>Flashcards</button>
             </div>
-            <p className="subtitle">Pick a level to start!</p>
+            <p className="subtitle">How tricky should Pip make it?</p>
             <div className="levels">
                 {LEVELS.map((l) => (
                     <button key={l.level} className={`level-card ${l.color}`} disabled={loading} onClick={() => pick(l.level)}>
-                        <span className="sample">{l.sample}</span>
-                        <span className="name">{l.name}</span>
+                        <span className="level-text">
+                            <span className="level-stars">{l.stars}</span>
+                            <span className="name">{l.name}</span>
+                            <span className="level-desc">{l.desc} · Grades {l.grades}</span>
+                        </span>
+                        <span className="level-tile">{l.sample}</span>
                     </button>
                 ))}
             </div>
