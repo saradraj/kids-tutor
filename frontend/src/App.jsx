@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {sendMessage, startSession} from "./api.js";
+import Flashcards from './Flashcards.jsx';
 
 const LEVELS = [
     { level: 1, name: 'Easy', sample: '3 + 4', color: 'mint'},
@@ -11,16 +12,25 @@ const KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '⌫', '0', '✓'];
 
 export default function App() {
     const [session, setSession] = useState(null);
+    const [cardsLevel, setCardsLevel] = useState(null);
+    if(cardsLevel) {
+        return <Flashcards level={cardsLevel} onExit={() => setCardsLevel(null)} />;
+    }
     return session
         ? <Tutor session={session} onExit={() => setSession(null)} />
-        : <LevelPicker onPick={setSession} />;
+        : <LevelPicker onPick={setSession} onPickCards={setCardsLevel} />;
 }
 
-function LevelPicker({ onPick }) {
+function LevelPicker({ onPick, onPickCards }) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [mode, setMode] = useState('tutor');
 
     async function pick(level) {
+        if(mode === 'cards') {
+            onPickCards(LEVELS.find((l) => l.level === level));
+            return;
+        }
         setLoading(true);
         setError('');
         try {
@@ -36,6 +46,10 @@ function LevelPicker({ onPick }) {
         <main className="screen picker">
             <Pip size="big" />
             <h1>Math with Pip</h1>
+            <div className="mode-toggle" role="group" aria-label="Practice mode">
+                <button className={mode === 'tutor' ? 'active' : ''} onClick={() => setMode('tutor')}>Learn with Pip</button>
+                <button className={mode === 'cards' ? 'active' : ''} onClick={() => setMode('cards')}>Flashcards</button>
+            </div>
             <p className="subtitle">Pick a level to start!</p>
             <div className="levels">
                 {LEVELS.map((l) => (

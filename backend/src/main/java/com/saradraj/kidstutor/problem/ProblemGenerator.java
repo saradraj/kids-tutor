@@ -16,7 +16,7 @@ public class ProblemGenerator {
     public static final int MAX_LEVEL = 3;
 
     private final RandomGenerator random;
-
+N
     public ProblemGenerator() {
         this(new java.util.Random());
     }

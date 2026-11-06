@@ -100,9 +100,40 @@ button:disabled { cursor: default; opacity: 0.5; }
 .key.erase { background: var(--sun-soft); }
 .key.go { background: var(--mint); color: var(--white); box-shadow: 0 4px 0 #23966f; }
 
+/* Mode toggle */
+.mode-toggle { display: inline-flex; background: var(--white); border-radius: 999px; padding: 4px; margin: 14px 0 4px; box-shadow: 0 3px 0 #e4dccb; }
+.mode-toggle button { border: none; background: transparent; padding: 8px 18px; border-radius: 999px; font-size: 18px; font-weight: 700; color: var(--muted); }
+.mode-toggle button.active { background: var(--sky); color: var(--white); }
+
+/* Flashcards */
+.progress { height: 10px; background: var(--white); border-radius: 999px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--mint); transition: width 0.3s; }
+.progress-text { text-align: center; color: var(--muted); font-size: 16px; margin: 6px 0 12px; }
+.flashcard { perspective: 1000px; height: 230px; margin-bottom: 14px; }
+.flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.5s; transform-style: preserve-3d; }
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+.card-face {
+    position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    border: 4px solid var(--sky); border-radius: 26px; background: var(--white);
+}
+.card-back { transform: rotateY(180deg); }
+.card-back.right { border-color: var(--mint); background: var(--mint-soft); }
+.card-back.wrong { border-color: var(--sun); background: var(--sun-soft); }
+.card-text { font-size: 52px; font-weight: 700; letter-spacing: 2px; }
+.card-note { font-size: 20px; color: var(--muted); }
+.card-emoji { font-size: 40px; }
+.summary { text-align: center; background: var(--white); border-radius: 26px; padding: 28px 16px 16px; }
+.summary-score { font-size: 64px; font-weight: 700; color: var(--mint); }
+.summary-text { font-size: 22px; margin: 4px 0 20px; }
+.next.secondary { background: var(--sky); }
+
 /* Celebration */
 .confetti { position: absolute; inset: 0; pointer-events: none; }
 .confetti span {
+    --x: 0%;
+    --c: 0;
+    --d: 0s;
     position: absolute; top: -10px; left: var(--x); width: 10px; height: 14px; border-radius: 3px;
     background: hsl(calc(var(--c) * 90 + 20) 85% 60%);
     animation: fall 1.4s ease-in var(--d) forwards;
